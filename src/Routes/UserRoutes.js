@@ -1,31 +1,16 @@
 import express from 'express';
-import asyncHandler from 'express-async-handler';
-import User from '../Models/UserModel.js';
+import controller from "../controllers/authController.js";
+import {check} from "express-validator";
+import authMiddleware from "../Middleware/authMiddlware.js";
+import accessMiddware from "../Middleware/accessMiddware.js";
 
-const userRouter = express.Router();
-
+const authRouter = express.Router();
 // LOGIN
+authRouter.post('/registration',[
+    check("username", "Incorrect username input").notEmpty(),
+    check("password", "The password must be longer than 8 symbols").isLength({min: 8})
+], controller.registration)
+authRouter.post('/login', controller.login)
+authRouter.get('/users',accessMiddware(["ADMIN"]), controller.getUsers)
 
-userRouter.post(
-  '/login',
-  asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-
-    if (user && (await user.matchPassword(password))) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        token: null,
-        createdAt: user.createdAt,
-      });
-    } else {
-      res.status(401);
-      throw new Error('Invalid Email or Password');
-    }
-  }),
-);
-
-export default userRouter;
+export default authRouter;
