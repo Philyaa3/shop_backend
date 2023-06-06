@@ -6,6 +6,7 @@ import productRoute from './src/Routes/ProductRoutes.js';
 import { notFound, errorHandler } from './src/Middleware/Errors.js';
 import userRouter from './src/Routes/UserRoutes.js';
 import cors from "cors";
+import commRoute from "./src/Routes/CommentsRoutes.js";
 
 dotenv.config();
 connectDatabase();
@@ -13,11 +14,12 @@ const app = express();
 app.use(express.json());
 app.use(cors({origin: "*"}))
 
+
 // API
 app.use('/api/import', ImportData);
 app.use('/api/products', productRoute);
 app.use('/api/users', userRouter);
-
+app.use('/api/comments', commRoute)
 
 // ERROR HANDLER
 app.use(notFound);

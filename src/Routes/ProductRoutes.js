@@ -9,7 +9,7 @@ productRoute.get(
   '/',
   asyncHandler(async (req, res) => {
     const products = await Product.find();
-    console.log(products)
+    // console.log(products)
     res.json(products);
   })
 );
