@@ -36,6 +36,7 @@ class authController {
     async login(req, res) {
         try {
             const {username, password} = req.body
+            // console.log(username + " " + password)
             const user = await User.findOne({username})
             if(!user)
                 return res.status(400).json({message: "User undefined"})

@@ -7,6 +7,7 @@ import { notFound, errorHandler } from './src/Middleware/Errors.js';
 import authRouter from './src/Routes/UserRoutes.js';
 import cors from "cors";
 import commRoute from "./src/Routes/CommentsRoutes.js";
+import cartRoute from "./src/Routes/CartRoutes.js";
 
 dotenv.config();
 connectDatabase();
@@ -20,6 +21,7 @@ app.use('/api/import', ImportData);
 app.use('/api/products', productRoute);
 app.use('/api/auth', authRouter);
 app.use('/api/comments', commRoute)
+app.use('/api/cart', cartRoute)
 
 // ERROR HANDLER
 app.use(notFound);
