@@ -9,10 +9,15 @@ class CartController {
 
     async addItem(req, res) {
         const {item} = req.body
-        console.log(item)
+        // console.log(item.userId + " " + item.product._id)
+        const candidate = await CartItem.findOne({"userId": item.userId, "product._id": item.product._id})
+        if (candidate)
+            return  res.status(200).json({message: "Item is already exists"})
+
         const cartItem = new CartItem({userId: item.userId, count: item.count, product: item.product})
         await cartItem.save()
         res.status(200).json({message: "Item was successfully added"})
+
     }
 
     async deleteItem(req, res) {
@@ -20,13 +25,13 @@ class CartController {
         res.status(200).json({message: "Item was successfully deleted"})
     }
 
-    async increment(req, res){
+    async increment(req, res) {
         const modifiedItem = await CartItem.findOne({"userId": req.params.userId, "product._id": req.params.itemId})
         await CartItem.updateOne(modifiedItem, {$set: {"count": modifiedItem.count + 1}}, {upsert: true})
         res.status(200).json({message: "Item was successfully modified"})
     }
 
-    async decrement(req, res){
+    async decrement(req, res) {
         const modifiedItem = await CartItem.findOne({"userId": req.params.userId, "product._id": req.params.itemId})
         await CartItem.updateOne(modifiedItem, {$set: {"count": modifiedItem.count - 1}}, {upsert: true})
         res.status(200).json({message: "Item was successfully modified"})
