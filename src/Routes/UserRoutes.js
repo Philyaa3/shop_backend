@@ -6,7 +6,7 @@ import authMiddleware from "../Middleware/authMiddlware.js";
 const authRouter = express.Router();
 // LOGIN
 authRouter.post('/registration',[
-    check("username", "Incorrect username input").notEmpty(),
+    check("email", "Incorrect username input").notEmpty(),
     check("password", "The password must be longer than 8 symbols").isLength({min: 8})
 ], controller.registration)
 authRouter.post('/login', controller.login)

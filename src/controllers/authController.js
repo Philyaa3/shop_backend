@@ -17,14 +17,14 @@ class authController {
             const errors = validationResult(req)
             if(!errors.isEmpty())
                 return res.status(400).json({message: "Registration error", errors})
-            const {username, password} = req.body
-            const candidate = await User.findOne({username})
+            const {username, email, password} = req.body
+            const candidate = await User.findOne({email})
             if(candidate){
                 return res.status(400).json({message: "User with current username already exists"})
             }
             const hashedPassword = bcrypt.hashSync(password, 12)
             const userRole = await Role.findOne({value: "USER"})
-            const user = new User({username, password: hashedPassword, roles:[userRole.value]})
+            const user = new User({username, email, password: hashedPassword, roles:[userRole.value]})
             await user.save()
             return res.json({message: "User was successfully created"})
         } catch (e) {
@@ -35,9 +35,9 @@ class authController {
 
     async login(req, res) {
         try {
-            const {username, password} = req.body
-            // console.log(username + " " + password)
-            const user = await User.findOne({username})
+            const {email, password} = req.body
+            console.log(email + " " + password)
+            const user = await User.findOne({email})
             if(!user)
                 return res.status(400).json({message: "User undefined"})
             if(!bcrypt.compareSync(password, user.password))
