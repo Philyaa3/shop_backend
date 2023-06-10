@@ -20,7 +20,7 @@ commRoute.post(
     asyncHandler(async (req, res) => {
         console.log(req.body)
         try {
-            Comment.create({...req.body, "_id": `${req.body.userId} ${req.body.itemId}`})
+            Comment.create(req.body)
             res.json({"responseStatus": "200"})
         }catch (e){
             res.json({"responseStatus": "500"})

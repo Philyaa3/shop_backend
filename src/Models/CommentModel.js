@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const commentSchema = mongoose.Schema(
     {
-        _id: {
-            type: String,
-            required: true
-        },
         userId: {
             type: String,
             required: true
