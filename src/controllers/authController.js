@@ -50,7 +50,7 @@ class authController {
         }
     }
 
-    async getUsers(req, res) {
+    async testToken(req, res) {
         try {
             res.json("server works")
         } catch (e) {
