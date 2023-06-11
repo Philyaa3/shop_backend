@@ -43,7 +43,7 @@ class authController {
             if(!bcrypt.compareSync(password, user.password))
                 return res.status(401).json({message: "incorrect credentials"})
             const token = generateAccessToken(user._id, user.roles)
-            return res.json({token: token})
+            return res.json({token: token, username: user.username})
         } catch (e) {
             console.log(e)
             res.status(400).json({message: "Login error"})

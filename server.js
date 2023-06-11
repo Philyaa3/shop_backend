@@ -8,6 +8,7 @@ import authRouter from './src/Routes/UserRoutes.js';
 import cors from "cors";
 import commRoute from "./src/Routes/CommentsRoutes.js";
 import cartRoute from "./src/Routes/CartRoutes.js";
+import historyRoute from "./src/Routes/HistoryRoutes.js";
 
 dotenv.config();
 connectDatabase();
@@ -22,6 +23,7 @@ app.use('/api/products', productRoute);
 app.use('/api/auth', authRouter);
 app.use('/api/comments', commRoute)
 app.use('/api/cart', cartRoute)
+app.use('/api/history', historyRoute)
 
 // ERROR HANDLER
 app.use(notFound);

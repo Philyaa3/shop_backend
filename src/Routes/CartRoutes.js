@@ -12,10 +12,14 @@ cartRoute.get(
 cartRoute.post(
     '/', authMiddlware, cartController.addItem
 )
+cartRoute.delete(
+    '/clear/:userId', authMiddlware, cartController.clearCart
+)
 //DELETE ITEM FROM CART
 cartRoute.delete(
     '/:userId/:itemId', authMiddlware, cartController.deleteItem
 )
+
 cartRoute.put(
     '/increment/:userId/:itemId', authMiddlware, cartController.increment
 )

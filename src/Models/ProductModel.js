@@ -19,8 +19,7 @@ const reviewSchema = mongoose.Schema(
 const productSchema = mongoose.Schema(
     {
         _id: {
-            type: String,
-            required: true
+          type: String
         },
         name: {
             type: String,
@@ -54,6 +53,9 @@ const productSchema = mongoose.Schema(
             required: true,
             default: 0,
         },
+        categories: [{
+            type: String
+        }]
     },
     {
         timestamps: true,

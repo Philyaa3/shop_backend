@@ -21,8 +21,19 @@ class CartController {
     }
 
     async deleteItem(req, res) {
-        await CartItem.deleteOne({"userId": req.params.userId, "product._id": req.params.itemId})
-        res.status(200).json({message: "Item was successfully deleted"})
+        try {
+            await CartItem.deleteOne({"userId": req.params.userId, "product._id": req.params.itemId})
+            res.status(200).json({message: "Item was successfully deleted"})
+        }catch (e) {
+            res.status(400).json({message: "Item wasn't successfully deleted"})
+        }
+
+
+    }
+    async clearCart(req, res) {
+        console.log("TEST")
+        await CartItem.deleteMany({"userId": req.params.userId})
+        res.status(200).json({message: "Cart was successful cleared"})
     }
 
     async increment(req, res) {
