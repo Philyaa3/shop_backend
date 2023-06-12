@@ -14,10 +14,11 @@ const generateAccessToken = (id, roles) => {
 class authController {
     async registration(req, res) {
         try {
-            const errors = validationResult(req)
-            if(!errors.isEmpty())
-                return res.status(400).json({message: "Registration error", errors})
+            // const errors = validationResult(req)
+            // if(!errors.isEmpty())
+            //     return res.status(400).json({message: "Registration error", errors})
             const {username, email, password} = req.body
+            console.log(username +  " " + email + " " + password)
             const candidate = await User.findOne({email})
             if(candidate){
                 return res.status(400).json({message: "User with current username already exists"})
@@ -26,7 +27,7 @@ class authController {
             const userRole = await Role.findOne({value: "USER"})
             const user = new User({username, email, password: hashedPassword, roles:[userRole.value]})
             await user.save()
-            return res.json({message: "User was successfully created"})
+            return res.status(200).json({message: "User was successfully created"})
         } catch (e) {
             console.log(e)
             res.status(400).json({message: "Registration error"})
