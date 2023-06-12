@@ -18,7 +18,6 @@ class authController {
             // if(!errors.isEmpty())
             //     return res.status(400).json({message: "Registration error", errors})
             const {username, email, password} = req.body
-            console.log(username +  " " + email + " " + password)
             const candidate = await User.findOne({email})
             if(candidate){
                 return res.status(400).json({message: "User with current username already exists"})
@@ -29,7 +28,6 @@ class authController {
             await user.save()
             return res.status(200).json({message: "User was successfully created"})
         } catch (e) {
-            console.log(e)
             res.status(400).json({message: "Registration error"})
         }
     }
