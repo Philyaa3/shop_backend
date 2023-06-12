@@ -31,7 +31,7 @@ class CartController {
 
     }
     async clearCart(req, res) {
-        console.log("TEST")
+        //console.log("TEST")
         await CartItem.deleteMany({"userId": req.params.userId})
         res.status(200).json({message: "Cart was successful cleared"})
     }
