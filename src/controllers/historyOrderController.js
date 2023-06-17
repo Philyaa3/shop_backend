@@ -1,7 +1,7 @@
 import HistoryOrder from "../Models/HistoryOrderModel.js";
 
 class HistoryController{
-    async getAll(req, res) {
+    async getAllByUserId(req, res) {
         const history = await HistoryOrder.find({"userId": req.params.userId})
         res.json(history)
     }
@@ -10,6 +10,10 @@ class HistoryController{
         const historyItem = new HistoryOrder(item)
         await historyItem.save()
         res.status(200).json({message: "History order was updated"})
+    }
+    async getAll(req, res) {
+        const history = await HistoryOrder.find()
+        res.json(history)
     }
 }
 
