@@ -40,7 +40,7 @@ const productSchema = mongoose.Schema(
             required: true,
             default: 0,
         },
-        price: {
+        cost: {
             type: Number,
             required: true,
             default: 0,
