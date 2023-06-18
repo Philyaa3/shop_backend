@@ -1,5 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import multer from 'multer';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import connectDatabase from './src/config/MongoDB.js';
 import ImportData from './DataImport.js';
 import productRoute from './src/Routes/ProductRoutes.js';
@@ -10,10 +13,15 @@ import commRoute from "./src/Routes/CommentsRoutes.js";
 import cartRoute from "./src/Routes/CartRoutes.js";
 import historyRoute from "./src/Routes/HistoryRoutes.js";
 import categoryRoute from "./src/Routes/CategoeyRoute.js";
+import subscribeRoute from "./src/Routes/SubscribeRoute.js";
 
 dotenv.config();
 connectDatabase();
 const app = express();
+// Get the current module file path
+const __filename = fileURLToPath(import.meta.url);
+// Get the current module directory name
+const __dirname = dirname(__filename)
 app.use(express.json());
 app.use(cors({origin: "*"}))
 
@@ -26,7 +34,8 @@ app.use('/api/comments', commRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/history', historyRoute)
 app.use('/api/categories', categoryRoute)
-
+app.use('/uploads', express.static(join(__dirname, 'uploads')))
+app.use('/api/subscribe', subscribeRoute);
 // ERROR HANDLER
 app.use(notFound);
 app.use(errorHandler);
