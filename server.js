@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import multer from 'multer';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import connectDatabase from './src/config/MongoDB.js';
